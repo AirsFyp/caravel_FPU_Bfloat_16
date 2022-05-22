@@ -22,7 +22,7 @@
 //`include "spiflash.v"
 `include "tb_prog.v"
 
-module FPU_Half_tb();
+module FPU_Bfloat_tb();
     reg clock;
     reg RSTB;
     reg CSB;
@@ -47,8 +47,8 @@ module FPU_Half_tb();
     end
  
     initial begin
-        $dumpfile("FPU_Half.vcd");
-        $dumpvars(0, FPU_Half_tb);
+        $dumpfile("FPU_Bfloat.vcd");
+        $dumpvars(0, FPU_Bfloat_tb);
 
         // Repeat cycles of 1000 clock edges as needed to complete testbench
         //repeat (300) begin
@@ -74,7 +74,7 @@ module FPU_Half_tb();
             wait(mprj_io_0 == 16'hC178);
             */
             // Observe Output pins [23:8] for Fsign and I2F
-            /*
+            
             wait(mprj_io_0 == 16'h449A);
             wait(mprj_io_0 == 16'h3042);
             wait(mprj_io_0 == 16'h491E);
@@ -84,23 +84,23 @@ module FPU_Half_tb();
             wait(mprj_io_0 == 16'h5F09);
             wait(mprj_io_0 == 16'hBD78);
             wait(mprj_io_0 == 16'h449A);
-            wait(mprj_io_0 == 16'h744A);
-            wait(mprj_io_0 == 16'h7AE6);
-            wait(mprj_io_0 == 16'h7582);
-            wait(mprj_io_0 == 16'h7AE4);
-            wait(mprj_io_0 == 16'h7208);
-            wait(mprj_io_0 == 16'h7AE7);
-            */
+            wait(mprj_io_0 == 16'h4689);
+            wait(mprj_io_0 == 16'h475D);
+            wait(mprj_io_0 == 16'h46B0);
+            wait(mprj_io_0 == 16'h475D);
+            wait(mprj_io_0 == 16'h4641);
+            wait(mprj_io_0 == 16'h475D);
+            
             // Observe Output pins [23:8] for FClass and F2I
             /*
-            wait(mprj_io_0 == 16'd5);
-            wait(mprj_io_0 == 16'd132);
+            wait(mprj_io_0 == 16'h04d0);
+            wait(mprj_io_0 == 16'hffff);
             wait(mprj_io_0 == 16'd0);
-            wait(mprj_io_0 == 16'd1);
-            wait(mprj_io_0 == 16'd10);
-            wait(mprj_io_0 == 16'd200);
-            wait(mprj_io_0 == 16'd210);
-            wait(mprj_io_0 == 16'd190);
+            wait(mprj_io_0 == 16'd0);
+            wait(mprj_io_0 == 16'hE000);
+            wait(mprj_io_0 == 16'hffff);
+            wait(mprj_io_0 == 16'hffff);
+            wait(mprj_io_0 == 16'hffff);
             wait(mprj_io_0 == 16'h0040);
             wait(mprj_io_0 == 16'h0040);
             wait(mprj_io_0 == 16'h0002);
@@ -125,6 +125,7 @@ module FPU_Half_tb();
             wait(mprj_io_0 == 16'hBCF0);
             */
             // Observe Output pins [23:8] for FMUL
+            /*
             wait(mprj_io_0 == 16'h60C2);
             wait(mprj_io_0 == 16'h30A7);
             wait(mprj_io_0 == 16'h67FF);
@@ -133,7 +134,7 @@ module FPU_Half_tb();
             wait(mprj_io_0 == 16'h5124);
             wait(mprj_io_0 == 16'h6058);
             wait(mprj_io_0 == 16'h0000);
-            
+            */
             $display("MPRJ-IO state = %h", mprj_io[23:8]);  
 		
 		`ifdef GL
@@ -214,7 +215,7 @@ module FPU_Half_tb();
 	);
 
 	spiflash #(
-		.FILENAME("FPU_Half.hex")
+		.FILENAME("FPU_Bfloat.hex")
 	) spiflash (
 		.csb(flash_csb),
 		.clk(flash_clk),

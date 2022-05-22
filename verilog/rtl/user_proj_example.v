@@ -101,7 +101,7 @@ module user_proj_example #(
 
    
     // Initiation of TOP Module
-    FPU_FSM_TOP FPU_Half_Precision_Top (
+    FPU_FSM_TOP FPU_Bfloat16_Precision_Top (
     					`ifdef USE_POWER_PINS
     					   .vccd1(vccd1),	// User area 1 1.8V supply
     					   .vssd1(vssd1),	// User area 1 digital ground
