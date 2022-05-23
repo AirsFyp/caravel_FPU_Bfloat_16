@@ -74,7 +74,7 @@ module FPU_Bfloat_tb();
             wait(mprj_io_0 == 16'hC178);
             */
             // Observe Output pins [23:8] for Fsign and I2F
-            
+            /*
             wait(mprj_io_0 == 16'h449A);
             wait(mprj_io_0 == 16'h3042);
             wait(mprj_io_0 == 16'h491E);
@@ -90,7 +90,7 @@ module FPU_Bfloat_tb();
             wait(mprj_io_0 == 16'h475D);
             wait(mprj_io_0 == 16'h4641);
             wait(mprj_io_0 == 16'h475D);
-            
+            */
             // Observe Output pins [23:8] for FClass and F2I
             /*
             wait(mprj_io_0 == 16'h04d0);
@@ -125,16 +125,16 @@ module FPU_Bfloat_tb();
             wait(mprj_io_0 == 16'hBCF0);
             */
             // Observe Output pins [23:8] for FMUL
-            /*
-            wait(mprj_io_0 == 16'h60C2);
-            wait(mprj_io_0 == 16'h30A7);
-            wait(mprj_io_0 == 16'h67FF);
-            wait(mprj_io_0 == 16'h78DF);
-            wait(mprj_io_0 == 16'h7C00);
-            wait(mprj_io_0 == 16'h5124);
-            wait(mprj_io_0 == 16'h6058);
+            
+            wait(mprj_io_0 == 16'h5D44);
+            wait(mprj_io_0 == 16'h2D29);
+            wait(mprj_io_0 == 16'h63ED);
+            wait(mprj_io_0 == 16'h7508);
+            wait(mprj_io_0 == 16'h79BA);
+            wait(mprj_io_0 == 16'h4DA1);
+            wait(mprj_io_0 == 16'h5C80);
             wait(mprj_io_0 == 16'h0000);
-            */
+            
             $display("MPRJ-IO state = %h", mprj_io[23:8]);  
 		
 		`ifdef GL
