@@ -107,7 +107,7 @@ module FPU_Bfloat_tb();
             wait(mprj_io_0 == 16'h0002);
             */
             // Observe Output pins [23:8] for Comparison and Min/Max
-            
+            /*
             wait(mprj_io_0 == 16'h0001);
             wait(mprj_io_0 == 16'h0001);
             wait(mprj_io_0 == 16'h0001);
@@ -123,7 +123,7 @@ module FPU_Bfloat_tb();
             wait(mprj_io_0 == 16'hDC87);
             wait(mprj_io_0 == 16'hB03E);
             wait(mprj_io_0 == 16'hBCF0);
-            
+            */
             // Observe Output pins [23:8] for FMUL
             /*
             wait(mprj_io_0 == 16'h5D44);
@@ -136,6 +136,25 @@ module FPU_Bfloat_tb();
             wait(mprj_io_0 == 16'h0000);
             */
            
+           // Observe Output pins [23:8] for Fadd/Fsub
+            
+            wait(mprj_io_0 == 16'h5823);
+            wait(mprj_io_0 == 16'h3C5F);
+            wait(mprj_io_0 == 16'h5A40);
+            wait(mprj_io_0 == 16'h5ACE);
+            wait(mprj_io_0 == 16'hDD1C);
+            wait(mprj_io_0 == 16'hDCD9);
+            wait(mprj_io_0 == 16'hDF09);
+            wait(mprj_io_0 == 16'h0000);
+            wait(mprj_io_0 == 16'hD823);
+            wait(mprj_io_0 == 16'hBC5F);
+            wait(mprj_io_0 == 16'hDA40);
+            wait(mprj_io_0 == 16'h5A2D);
+            wait(mprj_io_0 == 16'hDBA4);
+            wait(mprj_io_0 == 16'hDCD9);
+            wait(mprj_io_0 == 16'hDF09);
+            wait(mprj_io_0 == 16'hBD78);
+            
             
             $display("MPRJ-IO state = %h", mprj_io[23:8]);  
 		
