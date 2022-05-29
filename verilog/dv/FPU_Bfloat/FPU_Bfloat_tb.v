@@ -137,7 +137,7 @@ module FPU_Bfloat_tb();
             */
            
            // Observe Output pins [23:8] for Fadd/Fsub
-            
+            /*
             wait(mprj_io_0 == 16'h5823);
             wait(mprj_io_0 == 16'h3C5F);
             wait(mprj_io_0 == 16'h5A40);
@@ -154,6 +154,45 @@ module FPU_Bfloat_tb();
             wait(mprj_io_0 == 16'hDCD9);
             wait(mprj_io_0 == 16'hDF09);
             wait(mprj_io_0 == 16'hBD78);
+            */
+            // Observe Output pins [23:8] for Fmadd/Fmsub
+            /*
+            wait(mprj_io_0 == 16'h5D44);
+            wait(mprj_io_0 == 16'h3045);
+            wait(mprj_io_0 == 16'h63ED);
+            wait(mprj_io_0 == 16'h7508);
+            wait(mprj_io_0 == 16'h79BA); // check
+            wait(mprj_io_0 == 16'hDCD9);
+            wait(mprj_io_0 == 16'hDF05);
+            wait(mprj_io_0 == 16'hBD78);
+            wait(mprj_io_0 == 16'h5D44);
+            wait(mprj_io_0 == 16'hB03F);
+            wait(mprj_io_0 == 16'h63ED);
+            wait(mprj_io_0 == 16'h7508); //
+            wait(mprj_io_0 == 16'h79BA);
+            wait(mprj_io_0 == 16'h5CD9);
+            wait(mprj_io_0 == 16'h5F0D);
+            wait(mprj_io_0 == 16'h3D78);
+            */
+           // Observe Output pins [23:8] for Fnmadd/Fnmsub
+            
+            wait(mprj_io_0 == 16'hDD44);
+            wait(mprj_io_0 == 16'hB045); // B045
+            wait(mprj_io_0 == 16'hE3ED);
+            wait(mprj_io_0 == 16'hF508);
+            wait(mprj_io_0 == 16'hF9BA);
+            wait(mprj_io_0 == 16'h5CD9); // 5CD9
+            wait(mprj_io_0 == 16'h5F05); // 5f05
+            wait(mprj_io_0 == 16'h3D78); // 3D78
+            wait(mprj_io_0 == 16'hDD44);
+            wait(mprj_io_0 == 16'h303f);
+            wait(mprj_io_0 == 16'hE3ED);
+            wait(mprj_io_0 == 16'hF508);
+            wait(mprj_io_0 == 16'hF9BA);
+            wait(mprj_io_0 == 16'hDCD9);
+            wait(mprj_io_0 == 16'hDF0D);
+            wait(mprj_io_0 == 16'hBD78);
+            
             
             
             $display("MPRJ-IO state = %h", mprj_io[23:8]);  

@@ -13,7 +13,7 @@
 `include "LZD_comb.v"
 `include "LZD_mux.v"*/
 
-module FPU_Top (Operand_A,Operand_B,Operand_C, clk,rst_l, frm, sfpu_op,vfpu_op,fpu_sel,FPU_resultant, S_Flags, Exception_flag, interupt_Pin,FPU_Result_rd,Operand_Int);
+module FPU_Top (Operand_A_w,Operand_B_w,Operand_C_w, clk,rst_l, frm_w, sfpu_op_w,vfpu_op_w,fpu_sel_w,FPU_resultant, S_Flags, Exception_flag, interupt_Pin,FPU_Result_rd,Operand_Int_w);
 
 parameter std= 15;
 parameter man = 6;
@@ -23,13 +23,13 @@ parameter lzd = 3;
 
 
 //inputs
-input [std:0] Operand_A,Operand_B,Operand_C;
+input [std:0] Operand_A_w,Operand_B_w,Operand_C_w;
 input clk,rst_l;
-input [2:0] frm;
-input [23:0] sfpu_op;
-input [2:0]  fpu_sel;
-input [27:0] vfpu_op;
-input [31:0] Operand_Int;
+input [2:0] frm_w;
+input [23:0] sfpu_op_w;
+input [2:0]  fpu_sel_w;
+input [27:0] vfpu_op_w;
+input [31:0] Operand_Int_w;
 
 //output 
 output  [std:0]    FPU_resultant;
@@ -42,9 +42,40 @@ output [31:0]FPU_Result_rd;
 reg [std:0]    FPU_resultant_reg;
 reg[31:0] FPU_Result_rd_reg;
 reg [4:0]   S_Flags_reg;
+reg [std:0] Operand_A,Operand_B,Operand_C;
+reg [2:0] frm;
+reg [23:0] sfpu_op;
+reg [2:0]  fpu_sel;
+reg [27:0] vfpu_op;
+reg [31:0] Operand_Int;
 
+  always @(posedge clk)
+  begin
+    if(rst_l == 1'b0)
+    begin
+      Operand_A <= {(std+1){1'b0}};
+      Operand_B <= {(std+1){1'b0}};
+      Operand_C <= {(std+1){1'b0}};
+      frm <= 3'b000;
+      sfpu_op <= 24'h000000;
+      fpu_sel <= 3'b000;
+      vfpu_op <= 28'h0000000;
+      Operand_Int <= 32'h00000000;
+    end
+    else
+    begin
+      Operand_A <= Operand_A_w;
+      Operand_B <= Operand_B_w;
+      Operand_C <= Operand_C_w;
+      frm <= frm_w;
+      sfpu_op <= sfpu_op_w;
+      fpu_sel <= fpu_sel_w;
+      vfpu_op <= vfpu_op_w;
+      Operand_Int <= Operand_Int_w;
+    end
+  end
 //assigment of interim register on outptu ports
-assign FPU_resultant = (rst_l) ? FPU_resultant_reg:32'h00000000;
+  assign FPU_resultant = (rst_l) ? FPU_resultant_reg:{std+1{1'b0}};
 assign S_Flags = (rst_l) ? S_Flags_reg:5'b00000 ;
 assign FPU_Result_rd = (rst_l) ? FPU_Result_rd_reg : 32'h00000000;
 
@@ -254,14 +285,14 @@ begin
    
  if (~rst_l)
    begin
-   FPU_resultant_reg <= 32'h00000000;
+     FPU_resultant_reg <= {(std+1){1'b0}};
    FPU_Result_rd_reg <= 32'h00000000;
    S_Flags_reg <= 5'b00000;
    end
 else if (Exception_flag_interim) 
    begin
    FPU_resultant_reg <= output_interim_input_validation_temp_storage;
-   FPU_Result_rd_reg <= output_interim_input_validation_temp_storage;
+     FPU_Result_rd_reg <= (std==15) ? {16'h0000,output_interim_input_validation_temp_storage[15:0]} : output_interim_input_validation_temp_storage;
    S_Flags_reg  <= { output_interim_input_validation_invalid_flag , output_interim_input_validation_Divide_By_Zero , 3'b000 } ;
    end
 
@@ -306,14 +337,14 @@ begin
 
   else if (sfpu_op[14] | vfpu_op[18])   //output selection logic for Float to int instruction FCVT.W.S
     begin
-    FPU_resultant_reg  <= 32'h00000000;
+      FPU_resultant_reg  <= {(std+1){1'b0}};
     FPU_Result_rd_reg <= output_interim_FLOAT_to_Int;
     S_Flags_reg <= {output_interim_Invalid_Flag_Float_To_Int,3'b000,output_interim_Inexact_Flag_Float_To_Int};
     end    
 
   else if (sfpu_op[9] | sfpu_op[10] | sfpu_op[11] | (|vfpu_op[10:5]))  //output selection for comparision instructions
     begin
-    FPU_resultant_reg  <= 32'h00000000;
+    FPU_resultant_reg  <= {(std+1){1'b0}};
     FPU_Result_rd_reg <= output_interim_Comparison;
     S_Flags_reg <= 5'b00000; 
     end
@@ -327,13 +358,13 @@ begin
 
   else if (sfpu_op[21] | vfpu_op[25])               //output slection for Fclass instructions
     begin
-     FPU_resultant_reg <= 32'h00000000;
+     FPU_resultant_reg <= {(std+1){1'b0}};
      FPU_Result_rd_reg <= output_interim_Fclass;
      S_Flags_reg <= 5'b00000; 
     end
   else    
     begin
-     FPU_resultant_reg <= 32'h00000000;
+     FPU_resultant_reg <= {(std+1){1'b0}};
      FPU_Result_rd_reg <= 32'h00000000;
      S_Flags_reg <= 5'b00000;
     end  
